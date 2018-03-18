@@ -2,6 +2,7 @@
 
 /*------------------------------------------------------------------------------------*/
 
+// count words of a line (stop=" ")
 int countword(char *line, char stop)
 {
     int x,count;
