@@ -34,8 +34,11 @@ int main(int argc, char *argv[]){
   if (list != NULL){
   if (DEBUG) printf("Breakpoint1\n");
   
-  while ((readed = getline(&image, &len, list)) != 0){
+  while ((readed = getline(&image, &len, list)) != -1){
     
+    if (DEBUG) printf("%s", image);
+    image[15]=0;
+
     for (int r = 0; r < 4; ++r){
       for (int g = 0; g < 4; ++g){
         for (int b = 0; b < 4; ++b){
@@ -45,13 +48,8 @@ int main(int argc, char *argv[]){
     }
 
     char img[50] = "images/";
-    image[15]=0;
     strcat(img,image);
-    if (DEBUG) printf("%s\n", img);
-
     read_cimage(img, &cim);
-
-    if (DEBUG) printf("Breakpoint2\n");
     for (i = 0; i < 8; i++){
       for (j = 0; j < 8; j++){
         hist[cim.r[i][j]/64][cim.g[i][j]/64][cim.b[i][j]/64] += (double) 0.015625;
@@ -63,19 +61,14 @@ int main(int argc, char *argv[]){
         for (int b = 0; b < 4; ++b){
           fprintf(index, "%lf\t", hist[r][g][b]);
         }
-        fprintf(index, "\n");
       }
     }
     fprintf(index, "\n");
 
-    free_cimage(image, &cim);
+    free_cimage(img, &cim);
     }
 
   }
-
-  
-
-  read(hist);
   fclose(list);
   exit(0);
 }
