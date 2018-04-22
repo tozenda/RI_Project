@@ -59,12 +59,14 @@ int main(int argc, char *argv[]){
     for (int r = 0; r < 4; ++r){
       for (int g = 0; g < 4; ++g){
         for (int b = 0; b < 4; ++b){
-          fprintf(index, "%lf\t", hist[r][g][b]);
+          if(b==3 && g==3 && r==3){
+            fprintf(index, "%f\n", hist[r][g][b]);
+          } else{
+            fprintf(index, "%f\t", hist[r][g][b]);            
+          }
         }
       }
     }
-    fprintf(index, "\n");
-
     free_cimage(img, &cim);
     }
 
